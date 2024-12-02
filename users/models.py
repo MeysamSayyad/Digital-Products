@@ -74,24 +74,6 @@ class UserManager(BaseUserManager):
 
 
 # Create your models here.
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    nick_name = models.CharField(_("nick_name"), max_length=150, blank=True)
-    avatar = models.ImageField(_("avatar"), blank=True)
-    birthday = models.DateField(_("birthday"), null=True, blank=True)
-    gender = models.NullBooleanField(
-        _("gender"), help_text=_("female is False male is True,null is unset")
-    )
-    province = models.ForeignKey(
-        verbose_name=_("province"), to="Province", null=True, on_delete=models.SET_NULL
-    )
-
-    class Meta:
-        db_table = "user_profiles"
-        verbose_name = _("profile")
-        verbose_name_plural = _("profiles")
-
-
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(
         _("username"),
@@ -127,6 +109,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     last_seen = models.DateTimeField(_("last seen date"), null=True)
+    objects = UserManager()
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email", "phone_number"]
 
@@ -134,6 +117,24 @@ class User(AbstractBaseUser, PermissionsMixin):
         db_table = "users"
         verbose_name = _("user")
         verbose_name_plural = _("users")
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nick_name = models.CharField(_("nick_name"), max_length=150, blank=True)
+    avatar = models.ImageField(_("avatar"), blank=True)
+    birthday = models.DateField(_("birthday"), null=True, blank=True)
+    gender = models.NullBooleanField(
+        _("gender"), help_text=_("female is False male is True,null is unset")
+    )
+    province = models.ForeignKey(
+        verbose_name=_("province"), to="Province", null=True, on_delete=models.SET_NULL
+    )
+
+    class Meta:
+        db_table = "user_profiles"
+        verbose_name = _("profile")
+        verbose_name_plural = _("profiles")
 
 
 class Device(models.Model):
