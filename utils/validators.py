@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class PhoneNumberValidator(RegexValidator):
-    regex = "^98(9[0-3,9]\d{8}[1-9]\d{9})$"
+    regex = "^989[0-3,9]\d{8}$"
     message = "Phone number must be a VALID 12 digits like 98xxxxxxxxx"
     code = "invalid_phone_number"
 

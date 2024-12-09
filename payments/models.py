@@ -48,14 +48,14 @@ class Payment(models.Model):
     gateway = models.ForeignKey(
         Gateway,
         related_name="%(class)s",
-        verbose_name=_("package"),
+        verbose_name=_("gateway"),
         on_delete=models.CASCADE,
     )
     price = models.PositiveIntegerField(_("price"), default=0)
     status = models.PositiveIntegerField(
         _("status"), choices=STATUS_CHOICES, default=STATUS_VOID
     )
-    token = models.CharField()
+    token = models.CharField(_("token"), max_length=50)
     device_uuid = models.CharField(_("device uuid"), max_length=40, blank=True)
     phone_number = models.BigIntegerField(
         _("phone number"), validators=[validate_phone_number]

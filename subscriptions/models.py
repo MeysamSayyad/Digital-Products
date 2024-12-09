@@ -21,6 +21,9 @@ class Package(models.Model):
         auto_now=True,
     )
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         db_table = "packeges"
         verbose_name = _("package")
@@ -36,6 +39,9 @@ class Subscription(models.Model):
     )
     created_time = models.DateTimeField(_("created time"), auto_now_add=True)
     expire_time = models.DateTimeField(_("expire time"), null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username
 
     class Meta:
         db_table = "subscriptions"

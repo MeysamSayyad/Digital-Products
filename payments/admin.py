@@ -10,5 +10,12 @@ class GateWayAdmin(admin.ModelAdmin):
 
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):
-    list_display = ["user", "package", "gateway", "price", "status", "phone_number"]
+    list_display = [
+        "user",
+        "package",
+        "gateway",
+        "price",
+        "status",
+        "phone_number",
+    ]
     list_filter = ["status", "gateway", "package"]
